@@ -1,0 +1,27 @@
+# NuGet packages
+/Assets/[Pp]ackages
+
+# Unity generated
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+# Build
+/[Bb]uild/
+/[Bb]uilds/
+/.utmp/
+
+# Visual Studio / Rider
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+
+# macOS
+.DS_Store
+
+# YG2
+SavesEditorYG2.*
