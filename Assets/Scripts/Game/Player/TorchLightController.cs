@@ -1,3 +1,4 @@
+using Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -11,6 +12,9 @@ namespace Game.Player {
     public class TorchLightController : MonoBehaviour {
 
         //@formatter:off
+        [Header("Общие настройки игрока")]
+        [SerializeField] private PlayerSettings playerSettings;
+        
         [Header("Цветовые настройки")] 
         [SerializeField] private Color warmColor = new Color(1f, 0.6f, 0.2f); // Теплый оранжевый
         [SerializeField] private Color coolColor = new Color(1f, 0.8f, 0.4f); // Более холодный желтый
@@ -37,7 +41,7 @@ namespace Game.Player {
         [SerializeField] private float flareChance = 0.02f; // 2% шанс каждый кадр
         [SerializeField] private float flareDuration = 0.3f;
         [SerializeField] private float flareIntensityMultiplier = 1.8f;
-        //@formatter:off
+        //@formatter:on
 
         private Light2D torchLight;
         private float timeOffset;
@@ -53,6 +57,13 @@ namespace Game.Player {
             // Убеждаемся что тип света правильный
             if (torchLight.lightType != Light2D.LightType.Point) {
                 torchLight.lightType = Light2D.LightType.Point;
+            }
+
+            // Если заведены настройки игрока, берем радиус освещения оттуда
+            if (playerSettings != null) {
+                float range = outerRadiusRange.y - outerRadiusRange.x;
+                outerRadiusRange.x = playerSettings.torchRadius - range / 2;
+                outerRadiusRange.y = playerSettings.torchRadius + range / 2;
             }
 
             // Случайное смещение времени для каждого факела

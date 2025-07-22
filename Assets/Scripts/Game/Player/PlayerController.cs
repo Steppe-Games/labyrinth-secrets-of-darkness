@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using Common.Input_System;
 using DG.Tweening;
 using Game.Grid;
+using Scriptable_Objects;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace Game.Player {
@@ -18,15 +21,19 @@ namespace Game.Player {
 
     public class PlayerController : MonoBehaviour {
 
-    //@formatter:off
-    [Header("Movement Settings")]
-    [SerializeField] private float cellSize = 1f;
-    [SerializeField] private float moveDuration = 0.3f;
-    [SerializeField] private Ease moveEase = Ease.OutQuad;
-    
-    [Header("Grid Settings")]
-    [SerializeField] private bool waitForGridManager = true;
+        //@formatter:off
+        [Header("Общие настройки игрока")]
+        [SerializeField] private PlayerSettings playerSettings;
+            
+        [Header("Movement Settings")]
+        [SerializeField] private float cellSize = 1f;
+        [SerializeField] private Ease moveEase = Ease.OutQuad;
+        
+        [Header("Grid Settings")]
+        [SerializeField] private bool waitForGridManager = true;
         //@formatter:on
+
+        private float stepDuration = 0.3f;
 
         private Queue<MoveDirection> commandQueue = new Queue<MoveDirection>();
         private bool isMoving = false;
@@ -52,6 +59,10 @@ namespace Game.Player {
             // Выравниваем позицию на сетке при старте
             SnapToGrid();
 
+            if (playerSettings != null) {
+                stepDuration = playerSettings.stepDuration;
+            }
+
             // Подписываемся на готовность tilemap
             if (waitForGridManager) {
                 GridChannels.LevelTilemap
@@ -65,6 +76,23 @@ namespace Game.Player {
             else {
                 isGridReady = true;
             }
+
+            // Подписываемся на каналы ввода
+            InputSystemChannels.Left
+                .Subscribe(_ => AddCommand(MoveDirection.Left))
+                .AddTo(this);
+
+            InputSystemChannels.Up
+                .Subscribe(_ => AddCommand(MoveDirection.Up))
+                .AddTo(this);
+
+            InputSystemChannels.Right
+                .Subscribe(_ => AddCommand(MoveDirection.Right))
+                .AddTo(this);
+
+            InputSystemChannels.Down
+                .Subscribe(_ => AddCommand(MoveDirection.Down))
+                .AddTo(this);
         }
 
         private void Update() {
@@ -75,22 +103,6 @@ namespace Game.Player {
         }
 
         #region Public API
-
-        public void Left() {
-            AddCommand(MoveDirection.Left);
-        }
-
-        public void Up() {
-            AddCommand(MoveDirection.Up);
-        }
-
-        public void Right() {
-            AddCommand(MoveDirection.Right);
-        }
-
-        public void Down() {
-            AddCommand(MoveDirection.Down);
-        }
 
         public void ClearCommands() {
             commandQueue.Clear();
@@ -185,7 +197,7 @@ namespace Game.Player {
         private void StartMove(Vector2 targetPosition) {
             isMoving = true;
 
-            transform.DOMove(targetPosition, moveDuration)
+            transform.DOMove(targetPosition, stepDuration)
                 .SetEase(moveEase)
                 .OnComplete(() => {
                     isMoving = false;
