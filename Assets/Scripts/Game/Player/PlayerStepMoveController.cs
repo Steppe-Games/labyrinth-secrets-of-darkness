@@ -10,16 +10,7 @@ using UnityEngine.Tilemaps;
 
 namespace Game.Player {
 
-    public enum MoveDirection {
-
-        Left,
-        Up,
-        Right,
-        Down
-
-    }
-
-    public class PlayerController : MonoBehaviour {
+    public class PlayerStepMoveController : MonoBehaviour {
 
         //@formatter:off
         [Header("Общие настройки игрока")]
@@ -221,36 +212,6 @@ namespace Game.Player {
                     Mathf.Round(currentPos.y / cellSize) * cellSize
                 );
                 transform.position = snappedPos;
-            }
-        }
-
-        #endregion
-
-        #region Debug
-
-        private void OnDrawGizmosSelected() {
-            var tilemap = GridChannels.LevelTilemap.Value;
-            if (tilemap == null) return;
-
-            // Получаем текущую клетку
-            Vector3Int currentCell = tilemap.WorldToCell(transform.position);
-            Vector3 cellCenter = tilemap.GetCellCenterWorld(currentCell);
-            Vector3 cellSize = tilemap.cellSize;
-
-            // Показываем текущую клетку
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(cellCenter, cellSize);
-
-            // Показываем возможные целевые позиции
-            Gizmos.color = Color.yellow;
-            foreach (var direction in System.Enum.GetValues(typeof(MoveDirection))) {
-                Vector2 targetPos = GetTargetPosition((MoveDirection)direction);
-                Vector3Int targetCell = tilemap.WorldToCell(targetPos);
-                Vector3 targetCellCenter = tilemap.GetCellCenterWorld(targetCell);
-
-                // Меняем цвет в зависимости от проходимости
-                Gizmos.color = IsCellPassable(targetPos) ? Color.green : Color.red;
-                Gizmos.DrawWireCube(targetCellCenter, cellSize * 0.8f);
             }
         }
 

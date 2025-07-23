@@ -11,6 +11,9 @@ namespace Common.Input_System {
         [SerializeField] private InputActionReference downAction;
         [SerializeField] private InputActionReference leftAction;
         [SerializeField] private InputActionReference rightAction;
+
+        [Header("WASD Action")]
+        [SerializeField] private InputActionReference wasdAction;
         //@formatter:on
 
         private void OnEnable() {
@@ -34,6 +37,12 @@ namespace Common.Input_System {
                 rightAction.action.performed += OnRightPressed;
                 rightAction.action.Enable();
             }
+
+            if (wasdAction != null) {
+                wasdAction.action.performed += OnWASDInput;
+                wasdAction.action.canceled += OnWASDInput;
+                wasdAction.action.Enable();
+            }
         }
 
         private void OnDisable() {
@@ -56,6 +65,12 @@ namespace Common.Input_System {
             if (rightAction != null) {
                 rightAction.action.performed -= OnRightPressed;
                 rightAction.action.Disable();
+            }
+            
+            if (wasdAction != null) {
+                wasdAction.action.performed -= OnWASDInput;
+                wasdAction.action.canceled -= OnWASDInput;
+                wasdAction.action.Enable();
             }
         }
 
@@ -91,8 +106,38 @@ namespace Common.Input_System {
         public void Right() {
             InputSystemChannels.Right.Execute();
         }
+
+        public void ToggleUp(bool value) {
+            InputSystemChannels.UpPressed.Value = value;
+        }
+
+        public void ToggleDown(bool value) {
+            InputSystemChannels.DownPressed.Value = value;
+        }
+
+        public void ToggleLeft(bool value) {
+            InputSystemChannels.LeftPressed.Value = value;
+        }
+
+        public void ToggleRight(bool value) {
+            InputSystemChannels.RightPressed.Value = value;
+        }
         
-        
+        private void OnWASDInput(InputAction.CallbackContext context) {
+            Vector2 input = context.ReadValue<Vector2>();
+
+            if (context.phase == InputActionPhase.Performed) {
+                InputSystemChannels.LeftPressed.Value = input.x < -0.5f;
+                InputSystemChannels.RightPressed.Value = input.x > 0.5f;
+                InputSystemChannels.UpPressed.Value = input.y > 0.5f;
+                InputSystemChannels.DownPressed.Value = input.y < -0.5f;
+            } else if (context.phase == InputActionPhase.Canceled) {
+                InputSystemChannels.LeftPressed.Value = input.x < -0.5f;
+                InputSystemChannels.RightPressed.Value = input.x > 0.5f;
+                InputSystemChannels.UpPressed.Value = input.y > 0.5f;
+                InputSystemChannels.DownPressed.Value = input.y < -0.5f;
+            }
+        }
 
     }
 
