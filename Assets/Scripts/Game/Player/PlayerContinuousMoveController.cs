@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Common.Input_System;
 using DG.Tweening;
-using Game.Grid;
+using Game.Labyrinth;
 using Scriptable_Objects;
 using UniRx;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
+using Конфигурация;
 
 namespace Game.Player {
 
@@ -39,6 +40,20 @@ namespace Game.Player {
             { MoveDirection.Down, Vector2.down }
         };
 
+        private HashSet<TileBase> blockingTiles = new();
+
+        private void Awake() {
+            ConfigChannels.LabyrinthSettings
+                .Where(it => it != null)
+                .Subscribe(settings => {
+                    blockingTiles = settings.tiles
+                        .Where(it => it.blocking)
+                        .Select(it => it.tileBase)
+                        .ToHashSet();
+                })
+                .AddTo(this);
+        }
+
         private void Start() {
             // Выравниваем позицию на сетке при старте
             SnapToGrid();
@@ -49,7 +64,7 @@ namespace Game.Player {
 
             // Подписываемся на готовность tilemap
             if (waitForGridManager) {
-                GridChannels.LevelTilemap
+                LabyrinthChannels.Geometry
                     .Where(tilemap => tilemap != null)
                     .Subscribe(_ => {
                         isGridReady = true;
@@ -145,14 +160,13 @@ namespace Game.Player {
         }
 
         private bool IsCellPassable(Vector2 targetPosition) {
-            var tilemap = GridChannels.LevelTilemap.Value;
+            var tilemap = LabyrinthChannels.Geometry.Value;
             if (tilemap == null) {
                 Debug.LogWarning("LevelTilemap не инициализирован");
                 return false;
             }
 
-            var blockingTiles = GridChannels.BlockingTiles.Value;
-            if (blockingTiles == null || blockingTiles.Length == 0) {
+            if (blockingTiles.Count == 0) {
                 return true;
             }
 
@@ -161,13 +175,8 @@ namespace Game.Player {
 
             if (tileAtPosition == null)
                 return true;
-
-            foreach (var blockingTile in blockingTiles) {
-                if (tileAtPosition == blockingTile)
-                    return false;
-            }
-
-            return true;
+            
+            return !blockingTiles.Contains(tileAtPosition);
         }
 
         private void StartMove(Vector2 targetPosition) {
@@ -194,8 +203,8 @@ namespace Game.Player {
                 });
         }
 
-        private void SnapToGrid() {
-            var tilemap = GridChannels.LevelTilemap.Value;
+        public void SnapToGrid() {
+            var tilemap = LabyrinthChannels.Geometry.Value;
             if (tilemap != null) {
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
                 Vector3 cellCenterWorld = tilemap.GetCellCenterWorld(cellPosition);
