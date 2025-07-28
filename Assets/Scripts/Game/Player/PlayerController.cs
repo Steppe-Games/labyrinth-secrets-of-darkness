@@ -54,6 +54,10 @@ namespace Game.Player {
                 .AddTo(this);
         }
 
+        private void Start() {
+            Respawn();
+        }
+
         private void OnDestroy() {
             // Убиваем анимацию при уничтожении объекта
             damageSequence?.Kill();

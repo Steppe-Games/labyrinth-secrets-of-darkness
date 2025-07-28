@@ -17,9 +17,8 @@ namespace Scriptable_Objects {
         public TileBase tileBase;
         public bool blocking;
         public bool castShadows;
-        public bool playerRespawnPoint;
         public GameObject spawnObject;
 
     }
-    
+
 }

@@ -13,18 +13,27 @@ MonoBehaviour:
   m_Name: "\u041B\u0430\u0431\u0438\u0440\u0438\u043D\u0442"
   m_EditorClassIdentifier: 
   tiles:
-  - tileBase: {fileID: 11400000, guid: fd192c710d3a94e468bd2f32a216e41f, type: 2}
+  - tileBase: {fileID: 11400000, guid: 0205bb6fe712fa847a828ba836c3223e, type: 2}
     blocking: 1
     castShadows: 1
-    playerRespawnPoint: 0
+    spawnObject: {fileID: 0}
+  - tileBase: {fileID: 11400000, guid: e5041548701f5fa498b306bcdb3edb80, type: 2}
+    blocking: 1
+    castShadows: 1
+    spawnObject: {fileID: 0}
+  - tileBase: {fileID: 11400000, guid: 77058b461cd10294c9cee6b7a8a6d18b, type: 2}
+    blocking: 1
+    castShadows: 1
     spawnObject: {fileID: 0}
   - tileBase: {fileID: 11400000, guid: c7cb2720763d72545830ee45b47fa300, type: 2}
     blocking: 0
     castShadows: 0
-    playerRespawnPoint: 0
     spawnObject: {fileID: 5204944304222863295, guid: 84be153b63111e548a20e7388e2a1aeb, type: 3}
   - tileBase: {fileID: 11400000, guid: c3e04b87f35b5a847bae9259e74dc23b, type: 2}
     blocking: 0
     castShadows: 0
-    playerRespawnPoint: 1
     spawnObject: {fileID: 3750948932455650485, guid: 9e020946ade90c94bbec6af28991d918, type: 3}
+  - tileBase: {fileID: 11400000, guid: 3c0a897405da95e4681b57eee2c0b500, type: 2}
+    blocking: 0
+    castShadows: 0
+    spawnObject: {fileID: 795712620219142228, guid: fdb97e9ddc87f9d41979dbc56847f960, type: 3}
