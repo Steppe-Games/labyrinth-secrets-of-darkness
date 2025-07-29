@@ -14,6 +14,9 @@ namespace Scriptable_Objects {
 
         [Tooltip("Время одного шага (сек)")]
         public float stepDuration;
+        
+        [Tooltip("Агро радиус")]
+        public float agroRadius = 15;
 
         [Header("Библиотека звуковых эффектов")]
         [Tooltip("Звук получения урона")]

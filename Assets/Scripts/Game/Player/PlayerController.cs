@@ -25,6 +25,7 @@ namespace Game.Player {
 
         //@formatter:off
         [SerializeField] private SpriteRenderer playerSR;
+        [SerializeField] private CircleCollider2D agroCollider;
         [SerializeField] private AudioSource audioSource;
         //@formatter:on
         
@@ -35,7 +36,6 @@ namespace Game.Player {
 
         private void Awake() {
             moveController = GetComponentInChildren<PlayerContinuousMoveController>();
-
 
             if (playerSR == null)
                 throw new Exception("PlayerController: playerSR is null");
@@ -79,6 +79,8 @@ namespace Game.Player {
 
         private void OnPlayerSettingsInitialized(PlayerSettings settings) {
             playerSettings = settings;
+
+            agroCollider.radius = playerSettings.agroRadius;
             PlayerChannels.Health.Value = settings.maximumLife;
         }
 

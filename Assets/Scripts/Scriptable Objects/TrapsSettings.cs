@@ -10,6 +10,11 @@ namespace Scriptable_Objects {
         public int spikeDamage;
         [Tooltip("Повторный урон если игрок стоит на шипах дольше N сек")]
         public float spikeDamagePeriod;
+
+        [Header("Огненный колодец")]
+        public int fireballDamage;
+        public float fireballSpawnPeriod;
+        public float fireballVelocity;
         //@formatter:on
 
     }

@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spikeDamage: 1
   spikeDamagePeriod: 5
+  fireballDamage: 1
+  fireballSpawnPeriod: 3
+  fireballVelocity: 1

@@ -47,8 +47,8 @@ namespace Game.Labyrinth.Objects {
                 
                     if (tile != null && tilePropertiesDict.TryGetValue(tile, out TileProperties properties)) {
                         if (properties.spawnObject != null) {
-                            tilemap.SetTile(position, null);
                             SpawnObjectAtPosition(position, properties.spawnObject);
+                            tilemap.SetTile(position, null);
                         }
                     }
                 }
