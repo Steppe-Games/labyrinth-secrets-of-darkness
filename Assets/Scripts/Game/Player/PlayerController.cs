@@ -17,10 +17,13 @@ namespace Game.Player {
                 .Select(it => it <= 0)
                 .ToReadOnlyReactiveProperty();
 
+        public static ReactiveProperty<PlayerInventory> Inventory { get; } = new();
+        
         public static ReactiveProperty<List<Vector3>> RespawnPositions { get; } = new(new List<Vector3>());
 
     }
     
+    [RequireComponent(typeof(PlayerInventory))]
     public class PlayerController : MonoBehaviour {
 
         //@formatter:off
@@ -35,6 +38,8 @@ namespace Game.Player {
         private PlayerSettings playerSettings;
 
         private void Awake() {
+            PlayerChannels.Inventory.Value = GetComponent<PlayerInventory>();
+
             moveController = GetComponentInChildren<PlayerContinuousMoveController>();
 
             if (playerSR == null)
@@ -85,7 +90,7 @@ namespace Game.Player {
         }
 
         private void OnPlayerHealthChanged(Pair<int> health) {
-            if (health.Current < health.Previous)
+            if (health.Current < health.Previous && health.Current < playerSettings.maximumLife)
                 AnimateTakeHit();
         }
 

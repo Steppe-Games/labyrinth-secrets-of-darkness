@@ -94,10 +94,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6327076851869180928}
   - component: {fileID: 1494684785600520538}
+  - component: {fileID: 4165148527887062516}
+  - component: {fileID: 7057375141790768729}
   - component: {fileID: 1984838619372232581}
   - component: {fileID: 2616018162343639274}
   - component: {fileID: 5171222297676926543}
   - component: {fileID: 6465538992210376690}
+  - component: {fileID: 8916055944982469247}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -138,6 +141,31 @@ MonoBehaviour:
   playerSR: {fileID: 3393832997968656534}
   agroCollider: {fileID: 8105588183294774973}
   audioSource: {fileID: 0}
+--- !u!114 &4165148527887062516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319496318222938169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aa4a718b47109d4e86b6b6f93350b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemSettings: {fileID: 11400000, guid: 6bf82446cc6c28b44936bf89ee788e1f, type: 2}
+--- !u!114 &7057375141790768729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319496318222938169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b583f29ccb43a99bda2a792e8356df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1984838619372232581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,6 +352,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
+--- !u!114 &8916055944982469247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319496318222938169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aa4a718b47109d4e86b6b6f93350b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemSettings: {fileID: 0}
 --- !u!1 &7392937659420894868
 GameObject:
   m_ObjectHideFlags: 0
