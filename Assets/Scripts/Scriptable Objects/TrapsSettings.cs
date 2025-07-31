@@ -15,6 +15,15 @@ namespace Scriptable_Objects {
         public int fireballDamage;
         public float fireballSpawnPeriod;
         public float fireballVelocity;
+        
+        [Header("Сундук ловушка")]
+        public int chestTrapDamage = 1;
+        public float chestTrapDelay = 2f;
+        public float chestTrapDestroyDelay = 0.5f;
+        
+        [Header("Chest Trap Audio")]
+        public AudioClip chestTrapWarningSound;
+        public AudioClip chestTrapExplosionSound;
         //@formatter:on
 
     }
