@@ -160,23 +160,32 @@ namespace Game.Player {
         }
 
         private bool IsCellPassable(Vector2 targetPosition) {
+            // Проверка tilemap (ваш существующий код)
             var tilemap = LabyrinthChannels.Geometry.Value;
             if (tilemap == null) {
                 Debug.LogWarning("LevelTilemap не инициализирован");
                 return false;
             }
 
-            if (blockingTiles.Count == 0) {
-                return true;
+            if (blockingTiles.Count > 0) {
+                Vector3Int cellPosition = tilemap.WorldToCell(targetPosition);
+                TileBase tileAtPosition = tilemap.GetTile(cellPosition);
+        
+                if (tileAtPosition != null && blockingTiles.Contains(tileAtPosition)) {
+                    return false;
+                }
             }
 
-            Vector3Int cellPosition = tilemap.WorldToCell(targetPosition);
-            TileBase tileAtPosition = tilemap.GetTile(cellPosition);
+            // Проверка GameObject'ов с Collider2D
+            Collider2D[] colliders = Physics2D.OverlapPointAll(targetPosition);
+            foreach (Collider2D hitCollider in colliders) {
+                // Проверяем список блокирующих тегов
+                if (hitCollider.CompareTag("Wall")) {
+                    return false;
+                }
+            }
 
-            if (tileAtPosition == null)
-                return true;
-            
-            return !blockingTiles.Contains(tileAtPosition);
+            return true;
         }
 
         private void StartMove(Vector2 targetPosition) {

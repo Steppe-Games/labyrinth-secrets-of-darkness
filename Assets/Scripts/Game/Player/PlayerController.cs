@@ -23,7 +23,6 @@ namespace Game.Player {
 
     }
     
-    [RequireComponent(typeof(PlayerInventory))]
     public class PlayerController : MonoBehaviour {
 
         //@formatter:off
@@ -38,8 +37,6 @@ namespace Game.Player {
         private PlayerSettings playerSettings;
 
         private void Awake() {
-            PlayerChannels.Inventory.Value = GetComponent<PlayerInventory>();
-
             moveController = GetComponentInChildren<PlayerContinuousMoveController>();
 
             if (playerSR == null)
@@ -87,6 +84,7 @@ namespace Game.Player {
 
             agroCollider.radius = playerSettings.agroRadius;
             PlayerChannels.Health.Value = settings.maximumLife;
+            PlayerChannels.Inventory.Value = new PlayerInventory(settings.items);
         }
 
         private void OnPlayerHealthChanged(Pair<int> health) {

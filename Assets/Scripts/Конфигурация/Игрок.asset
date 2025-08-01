@@ -15,3 +15,10 @@ MonoBehaviour:
   maximumLife: 5
   torchRadius: 2.5
   stepDuration: 0.3
+  agroRadius: 15
+  items: {fileID: 11400000, guid: 6bf82446cc6c28b44936bf89ee788e1f, type: 2}
+  hitSound: {fileID: 0}
+  stepSound: {fileID: 0}
+  deathSound: {fileID: 0}
+  pickupSound: {fileID: 0}
+  lightTorchSound: {fileID: 0}

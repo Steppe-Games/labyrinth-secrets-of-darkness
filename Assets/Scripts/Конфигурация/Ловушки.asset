@@ -15,5 +15,10 @@ MonoBehaviour:
   spikeDamage: 1
   spikeDamagePeriod: 5
   fireballDamage: 1
-  fireballSpawnPeriod: 3
-  fireballVelocity: 1
+  fireballSpawnPeriod: 6
+  fireballVelocity: 3
+  chestTrapDamage: 1
+  chestTrapDelay: 2
+  chestTrapDestroyDelay: 0.5
+  chestTrapWarningSound: {fileID: 0}
+  chestTrapExplosionSound: {fileID: 0}

@@ -5,11 +5,7 @@ using UnityEngine;
 
 namespace Game.Player {
 
-    public class PlayerInventory : MonoBehaviour {
-
-        //@formatter:off
-        [SerializeField] private ItemsSettings itemSettings;
-        //@formatter:on
+    public class PlayerInventory {
 
         public ReactiveCommand<ItemId> InventoryChanged { get; }= new();
 
@@ -17,7 +13,7 @@ namespace Game.Player {
         
         private Dictionary<ItemId, int> inventory = new();
 
-        private void Awake() {
+        public PlayerInventory(ItemsSettings itemSettings) {
             foreach (ItemConfiguration item in itemSettings.items) {
                 ItemReference[item.id] = item;
             }

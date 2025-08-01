@@ -17,6 +17,9 @@ namespace Scriptable_Objects {
         
         [Tooltip("Агро радиус")]
         public float agroRadius = 15;
+        
+        [Header("Инвентарь")]
+        public ItemsSettings items;
 
         [Header("Библиотека звуковых эффектов")]
         [Tooltip("Звук получения урона")]
