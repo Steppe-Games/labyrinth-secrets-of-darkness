@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: "\u0418\u0433\u0440\u043E\u043A"
   m_EditorClassIdentifier: 
   maximumLife: 5
-  torchRadius: 2.5
+  torchRadius: 2.2
   stepDuration: 0.3
-  agroRadius: 15
+  agroRadius: 50
   items: {fileID: 11400000, guid: 6bf82446cc6c28b44936bf89ee788e1f, type: 2}
   hitSound: {fileID: 0}
   stepSound: {fileID: 0}
