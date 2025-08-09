@@ -25,7 +25,7 @@ MonoBehaviour:
     blocking: 1
     castShadows: 1
     spawnObject: {fileID: 0}
-  - tileBase: {fileID: 11400000, guid: c7cb2720763d72545830ee45b47fa300, type: 2}
+  - tileBase: {fileID: 11400000, guid: 1c2093849c7a24444a8223719e67391d, type: 2}
     blocking: 0
     castShadows: 0
     spawnObject: {fileID: 5204944304222863295, guid: 84be153b63111e548a20e7388e2a1aeb, type: 3}

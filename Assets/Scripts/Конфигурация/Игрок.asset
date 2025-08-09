@@ -18,7 +18,7 @@ MonoBehaviour:
   agroRadius: 50
   items: {fileID: 11400000, guid: 6bf82446cc6c28b44936bf89ee788e1f, type: 2}
   hitSound: {fileID: 0}
-  stepSound: {fileID: 0}
+  stepSound: {fileID: 8300000, guid: 05e51fb12e62d4149b951011d22f492a, type: 3}
   deathSound: {fileID: 0}
   pickupSound: {fileID: 0}
   lightTorchSound: {fileID: 0}

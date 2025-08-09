@@ -12,6 +12,11 @@ namespace Game.Labyrinth.Objects {
         [SerializeField] private TrapsSettings trapsSettings;
 
         private PlayerController player;
+        private Animator animator;
+
+        private void Awake() {
+            animator = GetComponent<Animator>();
+        }
 
         private void OnDestroy() {
             StopAllCoroutines();
@@ -37,13 +42,13 @@ namespace Game.Labyrinth.Objects {
         }
         
         private IEnumerator DealDamage() {
-            if (player == null) {
-                yield break;
+            while (player != null) {
+                // Проигрываем анимацию при каждом ударе
+                animator.Play(0); // Проигрываем состояние по индексу 0
+                
+                player.TakeHit(trapsSettings.spikeDamage);
+                yield return new WaitForSeconds(trapsSettings.spikeDamagePeriod);
             }
-
-            player.TakeHit(trapsSettings.spikeDamage);
-            yield return new WaitForSeconds(trapsSettings.spikeDamagePeriod);
-            StartCoroutine(DealDamage());
         }
 
     }

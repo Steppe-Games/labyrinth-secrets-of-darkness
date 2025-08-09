@@ -20,6 +20,9 @@ namespace Game.Player {
         public static ReactiveProperty<PlayerInventory> Inventory { get; } = new();
         
         public static ReactiveProperty<List<Vector3>> RespawnPositions { get; } = new(new List<Vector3>());
+        
+        // Канал для состояния ходьбы
+        public static ReactiveProperty<bool> IsWalking { get; } = new(false);
 
     }
     

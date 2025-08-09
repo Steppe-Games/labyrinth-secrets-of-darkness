@@ -7,6 +7,7 @@ using Game.Labyrinth;
 using Scriptable_Objects;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Tilemaps;
 using Конфигурация;
 
@@ -24,10 +25,14 @@ namespace Game.Player {
         
         [Header("Grid Settings")]
         [SerializeField] private bool waitForGridManager = true;
+        
+        [Header("Audio Settings")]
+        [SerializeField] private AudioMixerGroup sfxGroup;
         //@formatter:on
 
+        private AudioSource stepAudioSource;
+
         private float stepDuration = 0.3f;
-        private bool isMoving = false;
         private bool isGridReady = false;
         private Vector2 currentInputDirection = Vector2.zero;
         private Tweener currentMoveTween;
@@ -43,6 +48,12 @@ namespace Game.Player {
         private HashSet<TileBase> blockingTiles = new();
 
         private void Awake() {
+            stepAudioSource = gameObject.AddComponent<AudioSource>();
+            stepAudioSource.clip = playerSettings.stepSound;
+            stepAudioSource.loop = true;
+            stepAudioSource.playOnAwake = false;
+            stepAudioSource.outputAudioMixerGroup = sfxGroup;
+
             ConfigChannels.LabyrinthSettings
                 .Where(it => it != null)
                 .Subscribe(settings => {
@@ -51,6 +62,12 @@ namespace Game.Player {
                         .Select(it => it.tileBase)
                         .ToHashSet();
                 })
+                .AddTo(this);
+            
+            PlayerChannels.IsWalking
+                .Throttle(TimeSpan.FromMilliseconds(100))
+                .DistinctUntilChanged()
+                .Subscribe(OnWalkingStateChanged)
                 .AddTo(this);
         }
 
@@ -109,13 +126,13 @@ namespace Game.Player {
 
         private void Update() {
             // Проверяем, нужно ли начать новое движение
-            if (!isMoving && isGridReady && currentInputDirection != Vector2.zero) {
+            if (!PlayerChannels.IsWalking.Value && isGridReady && currentInputDirection != Vector2.zero) {
                 TryStartMove();
             }
         }
 
         private void TryStartMove() {
-            if (isMoving || !isGridReady || currentInputDirection == Vector2.zero) {
+            if (PlayerChannels.IsWalking.Value || !isGridReady || currentInputDirection == Vector2.zero) {
                 return;
             }
 
@@ -189,7 +206,7 @@ namespace Game.Player {
         }
 
         private void StartMove(Vector2 targetPosition) {
-            isMoving = true;
+            PlayerChannels.IsWalking.Value = true;
 
             currentMoveTween = transform.DOMove(targetPosition, stepDuration)
                 .SetEase(moveEase)
@@ -202,7 +219,7 @@ namespace Game.Player {
                     }
                 })
                 .OnComplete(() => {
-                    isMoving = false;
+                    PlayerChannels.IsWalking.Value = false;
                     SnapToGrid();
                     
                     // Сразу пытаемся начать следующее движение, если кнопка всё ещё нажата
@@ -228,6 +245,19 @@ namespace Game.Player {
                 transform.position = snappedPos;
             }
         }
+        
+        private void OnWalkingStateChanged(bool isWalking) {
+            switch (isWalking) {
+                case true: {
+                    stepAudioSource.Play();
+                    break;
+                }
+                default: {
+                    stepAudioSource.Stop();
+                    break;
+                }
+            }
+        }
 
         private void OnDestroy() {
             // Останавливаем текущее движение
@@ -237,7 +267,7 @@ namespace Game.Player {
         private void OnDisable() {
             // Останавливаем движение при отключении компонента
             currentMoveTween?.Kill();
-            isMoving = false;
+            PlayerChannels.IsWalking.Value = false;
             currentInputDirection = Vector2.zero;
         }
 
