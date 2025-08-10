@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb894c4d1dd41c698cee5aa7e87976c, type: 3}
+  m_Name: "\u0421\u0443\u043D\u0434\u0443\u043A 1"
+  m_EditorClassIdentifier: 
+  commonItemsRange: {x: 1, y: 2}
+  keysRange: {x: 0, y: 0}
+  keyType: 0
+  gemsRange: {x: 1, y: 1}
+  lockedChest: {fileID: 21300000, guid: 3443cb2d270604476a4ea0374c523dd7, type: 3}
+  unlockedChest: {fileID: 21300000, guid: 43f9dc71579d94648a94a4835e3953c3, type: 3}
+  artifactType: 0
+  unlockBy: 0
+  pickLockChance: 0

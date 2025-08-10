@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: spike_trap_512
+  m_Name: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439 \u0441\u0443\u043D\u0434\u0443\u043A"
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 0781a27ea013ecf4c9d5f5fc81bfedab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3feb6d8b5011e4e2bad399265a385ac7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

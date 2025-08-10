@@ -49,3 +49,35 @@ MonoBehaviour:
     blocking: 0
     castShadows: 0
     spawnObject: {fileID: 3553284026375342423, guid: 250fad0141d7e7349b2fd340ae0bced6, type: 3}
+  - tileBase: {fileID: 11400000, guid: 4ef7321de3812f047928d054cab4e328, type: 2}
+    blocking: 0
+    castShadows: 0
+    spawnObject: {fileID: 7602799885328353543, guid: 1a1147e9139862a4398c92b8f8d933ac, type: 3}
+  - tileBase: {fileID: 11400000, guid: 17e066b23d015294d9b431d5b0cccd99, type: 2}
+    blocking: 0
+    castShadows: 0
+    spawnObject: {fileID: 5669554796424461082, guid: a2314cd3618face47b4f80370795413d, type: 3}
+  - tileBase: {fileID: 11400000, guid: b70ace13ed743834a966d1637d5f6592, type: 2}
+    blocking: 0
+    castShadows: 0
+    spawnObject: {fileID: 5669554796424461082, guid: 886e170aea160a04580efebf2209c533, type: 3}
+  - tileBase: {fileID: 11400000, guid: d4844f4bfa05c9f4996c316640de282d, type: 2}
+    blocking: 0
+    castShadows: 0
+    spawnObject: {fileID: 5669554796424461082, guid: 237a5a805d7633747b0df3bfb9015850, type: 3}
+  - tileBase: {fileID: 11400000, guid: 6beb56cbe3b76954cac9a485741ba074, type: 2}
+    blocking: 0
+    castShadows: 0
+    spawnObject: {fileID: 5669554796424461082, guid: 298c2afea25c4b149b453af5ce2e9ab0, type: 3}
+  - tileBase: {fileID: 11400000, guid: c516d8178b5769548818e0b873897261, type: 2}
+    blocking: 0
+    castShadows: 0
+    spawnObject: {fileID: 7602799885328353543, guid: 1a1147e9139862a4398c92b8f8d933ac, type: 3}
+  - tileBase: {fileID: 11400000, guid: 56577251b4c0b1b4fb1e7af56721ce75, type: 2}
+    blocking: 0
+    castShadows: 0
+    spawnObject: {fileID: 7602799885328353543, guid: 1a1147e9139862a4398c92b8f8d933ac, type: 3}
+  - tileBase: {fileID: 11400000, guid: 1bc826f2e0ebd6d47958937cfe92a32f, type: 2}
+    blocking: 0
+    castShadows: 0
+    spawnObject: {fileID: 7602799885328353543, guid: 1a1147e9139862a4398c92b8f8d933ac, type: 3}
