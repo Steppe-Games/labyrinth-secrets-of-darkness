@@ -15,6 +15,9 @@ namespace Game.Player {
 
     public class PlayerContinuousMoveController : MonoBehaviour {
 
+        private static readonly int MOVE_X = Animator.StringToHash("MoveX");
+        private static readonly int MOVE_Y = Animator.StringToHash("MoveY");
+
         //@formatter:off
         [Header("Общие настройки игрока")]
         [SerializeField] private PlayerSettings playerSettings;
@@ -28,6 +31,9 @@ namespace Game.Player {
         
         [Header("Audio Settings")]
         [SerializeField] private AudioMixerGroup sfxGroup;
+        
+        [Header("Анимация")]
+        [SerializeField] private Animator animator;
         //@formatter:on
 
         private AudioSource stepAudioSource;
@@ -48,6 +54,8 @@ namespace Game.Player {
         private HashSet<TileBase> blockingTiles = new();
 
         private void Awake() {
+            animator = GetComponent<Animator>();
+            
             stepAudioSource = gameObject.AddComponent<AudioSource>();
             stepAudioSource.clip = playerSettings.stepSound;
             stepAudioSource.loop = true;
@@ -145,10 +153,33 @@ namespace Game.Player {
             Vector2 targetPosition = GetTargetPosition(direction);
 
             if (IsCellPassable(targetPosition)) {
+                switch (direction) {
+                    case MoveDirection.Left:
+                        animator.SetInteger(MOVE_X, -1);
+                        animator.SetInteger(MOVE_Y, 0);
+                        break;
+                    case MoveDirection.Right:
+                        animator.SetInteger(MOVE_X, 1);
+                        animator.SetInteger(MOVE_Y, 0);
+                        break;
+                    case MoveDirection.Up:
+                        animator.SetInteger(MOVE_X, 0);
+                        animator.SetInteger(MOVE_Y, 1);
+                        break;
+                    case MoveDirection.Down:
+                        animator.SetInteger(MOVE_X, 0);
+                        animator.SetInteger(MOVE_Y, -1);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
                 StartMove(targetPosition);
             }
             else {
                 // Если клетка непроходима, останавливаемся в центре текущей
+                animator.SetInteger(MOVE_X, 0);
+                animator.SetInteger(MOVE_Y, 0);
                 SnapToGrid();
             }
         }
@@ -222,6 +253,9 @@ namespace Game.Player {
                     PlayerChannels.IsWalking.Value = false;
                     SnapToGrid();
                     
+                    animator.SetInteger(MOVE_X, 0);
+                    animator.SetInteger(MOVE_Y, 0);
+
                     // Сразу пытаемся начать следующее движение, если кнопка всё ещё нажата
                     if (currentInputDirection != Vector2.zero) {
                         TryStartMove();
