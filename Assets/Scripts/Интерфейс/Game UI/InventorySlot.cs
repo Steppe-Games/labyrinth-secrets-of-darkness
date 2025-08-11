@@ -21,7 +21,7 @@ namespace Интерфейс.Game_UI {
                 .Where(it => it != null)
                 .Take(1)
                 .Subscribe(inventory => {
-                    inventory.InventoryChanged
+                    PlayerInventory.InventoryChanged
                         .Where(eventItemId => eventItemId == id)
                         .Select(inventory.GetItemCount)
                         .Subscribe(OnInventoryChanged)

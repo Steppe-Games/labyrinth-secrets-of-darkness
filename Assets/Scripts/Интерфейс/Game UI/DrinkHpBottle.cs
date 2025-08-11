@@ -26,7 +26,7 @@ namespace Интерфейс.Game_UI {
         private void InitInventory(PlayerInventory inventory) {
             this.inventory = inventory;
             
-            this.inventory.InventoryChanged
+            PlayerInventory.InventoryChanged
                 .Where(id => id == ItemId.HP_BOTTLE)
                 .Subscribe(_ => OnHpBottleQuantityChanged())
                 .AddTo(this);

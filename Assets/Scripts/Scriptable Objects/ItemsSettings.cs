@@ -18,16 +18,24 @@ namespace Scriptable_Objects {
         [Tooltip("Техническое название предмета (только для разработки)")]
         public string name;
         public Sprite sprite;
+
+        [Header("Сортировка и хранение")]
+        public int sortOrder;
+        [Range(1, 999)]
+        public int maxStackSize = 10;
+
     }
 
     public enum ItemId {
 
-        TORCH,
-        LOCKPICK,
-        HP_BOTTLE,
-        KEY_1,
-        KEY_2,
-        KEY_3,
+        NONE = 0,
+        TORCH = 1,
+        LOCKPICK = 2,
+        HP_BOTTLE = 3,
+        BRONZE_KEY = 4,
+        SILVER_KEY = 5,
+        GOLDEN_KEY = 6,
+        MITHRIL_KEY = 7,
         GEM_1,
         GEM_2,
         GEM_3,
@@ -35,6 +43,5 @@ namespace Scriptable_Objects {
         GEM_5,
         GEM_6,
         GEM_7,
-
     }
 }
